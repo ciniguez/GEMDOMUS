@@ -13,6 +13,24 @@
 		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/styles.css" rel="stylesheet">
+		<script>
+			$(document).ready(function() {
+				$("#btnNewGraph").click(function() {
+					$("#frameNewGraph").modal();
+				});
+			});
+		</script>
+		<style>
+			.modal-header, h4, .close {
+				background-color: #5cb85c;
+				color: white !important;
+				text-align: center;
+				font-size: 30px;
+			}
+			.modal-footer {
+				background-color: #f9f9f9;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -23,11 +41,9 @@
 				<div class="col-md-3">
 					<h6>LOGO</h6>
 				</div>
-				<div class="col-md-6">
-					<h6>Vacio</h6>
-				</div>
-				<div class="col-md-3">
-					<h6>user1@test.com</h6>
+				<div class="col-md-3 col-md-offset-6">
+					<h6>user1@test.com | <a href="index.html">Logout</a></h6>
+
 				</div>
 			</div>
 
@@ -46,21 +62,14 @@
 					</ul>
 				</div>
 				<div class="col-md-6">
-					<h4>Project: <small>Project Name</small></h4>
+					<h3>Project: <small>Project Name</small></h3>
 				</div>
 				<div class="col-md-2">
 					<a href="#">Settings</a>
 				</div>
 			</div>
 
-			<!--ESPACIO -->
-			<div class="row">
-				<div class="col-md-12">
-				</div>
-			</div>
-			<!--FIN ESPACIO-->
-
-			<div class="row">
+			<div class="row top-buffer">
 				<div class="col-ms-3 col-md-3">
 					<div class="graph"></div>
 					<div class="graph"></div>
@@ -70,7 +79,7 @@
 				<div class="col-ms-6 col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" id="btnNewGraph">
 								Add Graph
 							</button>
 						</div>
@@ -169,5 +178,86 @@
 			</div>
 		</div>
 
+		<!----- interfaz Nuevo Grafico --->
+		<div role="dialog" id="frameNewGraph" class="modal fade">
+			<div class="modal-dialog">
+				<!--CONTENIDO DEL MODAL-->
+				<div class="modal-content">
+					<div class="modal-header" style="padding:5px 50px;">
+						<button type="button" class="close" data-dismiss="modal">
+							&times;
+						</button>
+						<h4><span class="glyphicon glyphicon-lock"></span> New Graph</h4>
+					</div>
+					<div class="modal-content" style="padding:40px 50px;">
+						<div class="form-group">
+							<label for="txtTitle">Title:</label>
+							<input type="text" class="form-control" id="txtTitle">
+							<div class="row top-buffer">
+								<div class="col-md-3">
+									<label for="lstMainVariable">By:</label>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" id="lstMainVariable">
+										<option value="chr">Chromosome</option>
+										<option value="var">Variant</option>
+										<option value="ref">Allele REF</option>
+										<option value="alt">Allele ALT</option>
+										<option value="filter">Filter</option>
+										<option value="qlt">Quality</option>
+										<option value="pos">Position</option>
+										<option selected>Select Option ...</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" id="lstAgregation">
+										<option>Count</option>
+										<option>Sum</option>
+										<option selected>Select Option ...</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" id="lstSecondVariable">
+										<option>Chromosome</option>
+										<option>Variant</option>
+										<option>Allele REF</option>
+										<option>Allele ALT</option>
+										<option>Filter</option>
+										<option>Quality</option>
+										<option>Position</option>
+										<option selected>Select Option ...</option>
+									</select>
+								</div>
+							</div>
+							<h5>Select Graph Type:</h5>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="graph_snapshot"></div>
+								</div>
+								<div class="col-md-4">
+									<div class="graph_snapshot"></div>
+								</div>
+								<div class="col-md-4">
+									<div class="graph_snapshot"></div>
+								</div>
+							</div>
+							<label class="checkbox-inline">
+								<input type="checkbox" value="">
+								Show legent</label>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default btn-success pull-right" data-dismiss="modal">
+									<span class="glyphicon glyphicon-off"></span> Add
+								</button>
+								<button type="button" class="btn btn-default btn-danger pull-left" data-dismiss="modal">
+									<span class="glyphicon glyphicon-off"></span> Cancel
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--FIN CONTENIDO DEL MODAL-->
+			</div>
+		</div>
 	</body>
 </html>
