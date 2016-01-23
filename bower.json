@@ -1,0 +1,18 @@
+{
+  "name": "ProyectoCodigo",
+  "homepage": "https://github.com/ciniguez/FI_RE_WA132",
+  "authors": [
+    "ciniguez <carlos.iniguez79@gmail.com>"
+  ],
+  "description": "Ejemplos2DUI",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

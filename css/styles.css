@@ -1,0 +1,8 @@
+.graph{
+	border-style: solid;
+	border-width:1px;
+	border-color: #797979;
+	min-width: 150px;
+	min-height: 200px;
+	margin-bottom: 10px;
+}
