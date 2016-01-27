@@ -1,12 +1,4 @@
 .top-buffer { margin-top:20px; }
-.graph{
-	border-style: solid;
-	border-width:1px;
-	border-color: #797979;
-	min-width: 100px;
-	min-height: 200px;
-	margin-bottom: 10px;
-}
 .graph_snapshot{
 	border-style: solid;
 	border-width:1px;

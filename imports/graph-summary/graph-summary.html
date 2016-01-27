@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>test</title>
+		<meta name="author" content="Carlos Iñiguez" />
+		<!-- Date: 2016-01-27 -->
+		<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+	</head>
+	<body>
+		<dom-module id="graph-summary">
+			<template>
+				<style>
+					.caja {
+						border-style: solid;
+						border-width: 1px;
+						border-color: #797979;
+						min-width: 100px;
+						min-height: 150px;
+						margin-bottom: 10px;
+						font-family: Arial, Helvetica, sans-serif;
+					}
+					.control{
+						width: 30%;
+						padding: 2px;
+						margin: 1%;
+						float:left;
+					}
+					.titulo{
+						padding-left:5%;
+						background-color: #555555;
+						color:#CCCCCC;
+					}
+					.grafico{
+						min-height: 100px;
+					}
+				</style>
+				<div class="caja" ondragstart="drag(event)" draggable="true" id="cmp1" ondragover="allowDrop(event)" drop="drop(event)">
+					<div class="titulo"><b>Titulo Gráfico</b></div>
+					<div class="grafico"><b>{{msgConection}}</b></div>
+					<div>
+						<div class="control">Edit</div>
+						<div class="control">Flip</div>
+						<div class="control">Move</div>
+					</div>
+					
+				</div>
+			</template>
+
+		</dom-module>
+		<script>
+			Polymer({
+				is : "graph-summary",
+				ready : function() {
+					this.msgConection = "No Data conected";
+					//this.textContent = "I'm a proto-element. Check out my prototype!";
+					//var s = new Saludo();
+				}
+			});
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"-->
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Pagina 1</title>
+		<!-- Bootstrap -->
+		<!--link href="lib/bootstrap/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet"-->
+		<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+	</head>
+	<body>
+		<dom-module id="table-component">
+			<template>
+				<h5>Filtered Results (145456)</h5>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+								<input type="checkbox"/>
+								</th>
+								<th>Variant</th>
+								<th>Position</th>
+								<th>REF</th>
+								<th>ALT</th>
+								<th>Quality</th>
+								<th>Filter</th>
+								<th>Chromosome</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+								<input type="checkbox"/>
+								</td>
+								<td>1</td>
+								<td>4370</td>
+								<td>G</td>
+								<td>A</td>
+								<td>29</td>
+								<td>.</td>
+								<td>2</td>
+								<td>
+								<button type="button" class="btn btn-default">
+									To curation
+								</button></td>
+							</tr>
+							<tr>
+								<td>
+								<input type="checkbox"/>
+								</td>
+								<td>567</td>
+								<td>4370</td>
+								<td>G</td>
+								<td>A</td>
+								<td>29</td>
+								<td>.</td>
+								<td>2</td>
+								<td>
+								<button type="button" class="btn btn-default">
+									To curation
+								</button></td>
+							</tr>
+							<tr>
+								<td>
+								<input type="checkbox"/>
+								</td>
+								<td>3</td>
+								<td>4370</td>
+								<td>G</td>
+								<td>A</td>
+								<td>29</td>
+								<td>.</td>
+								<td>2</td>
+								<td>
+								<button type="button" class="btn btn-default">
+									To curation
+								</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</template>
+			<script>
+				Polymer({
+					is : "table-component",
+					ready : function() {
+
+					}
+				});
+			</script>
+		</dom-module>
+	</body>
+</html>
