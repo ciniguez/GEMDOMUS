@@ -16,6 +16,7 @@
 		<script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="../imports/graph-summary/graph-summary.html">
 		<link rel="import" href="../imports/table-component/table-component.html">
+		<link rel="import" href="../bower_components/google-chart/google-chart.html">
 		<!--FIN POLYMER-->
 		<link href="../css/styles.css" rel="stylesheet">
 		<link href="../css/icono.min.css" rel="stylesheet">
@@ -54,26 +55,26 @@
 				<div class="col-md-4">
 					<ul class="nav nav-tabs">
 						<li role="presentation" class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" href="#">Menu</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="#">Project</a>
-							</li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="#">Import Data</a>
-							</li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="#">Analysis</a>
-							</li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="#">Curation</a>
-							</li>
-							<li role="presentation" class="divider"></li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="#">Project List</a>
-							</li>
-						</ul>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Project</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Import Data</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Analysis</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Curation</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Project List</a>
+								</li>
+							</ul>
 						</li>
 						<li class="active">
 							<a href="#"><span class="icono-pieChart"></span>Analysis</a>
@@ -93,10 +94,36 @@
 
 			<div class="row top-buffer">
 				<div class="col-ms-3 col-md-3">
-					<graph-summary></graph-summary>
-					<graph-summary></graph-summary>
-					<graph-summary></graph-summary>
-					<graph-summary></graph-summary>
+					<graph-summary>
+						<google-chart
+						cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+						rows='[["Something", 1]]'></google-chart>
+					</graph-summary>
+					<graph-summary>
+						<google-chart
+						cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+						rows='[["Something", 1]]'></google-chart>
+					</graph-summary>
+					<graph-summary>
+						<google-chart
+						id='mutating_chart'
+						type='column'
+						options='{"title": "Random data",
+						"vAxis": {"minValue" : 0, "maxValue": 10},
+						"animation": {"duration": "1000"}}'
+						cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+						rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'></google-chart>
+					</graph-summary>
+					<graph-summary>
+						<google-chart
+						type='column'
+						options='{"title": "Inventory"}'
+						data='[["Year", "Things", "Stuff"],
+						["2004", 1000, 400],
+						["2005", 1170, 460],
+						["2006", 660, 1120],
+						["2007", 1030, 540]]'></google-chart>
+					</graph-summary>
 				</div>
 				<div class="col-ms-6 col-md-6">
 					<div class="panel panel-default">
@@ -110,10 +137,38 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-6">
-									<graph-summary></graph-summary>
+									<graph-summary>
+										<google-chart
+										type='pie'
+										options='{"title": "Distribution of days in 2001H1"}'
+										cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+										rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'></google-chart>
+									</graph-summary>
 								</div>
 								<div class="col-md-6">
-									<graph-summary></graph-summary>
+									<graph-summary>
+										<google-chart
+										id='mutating_chart'
+										type='column'
+										options='{"title": "Random data",
+										"vAxis": {"minValue" : 0, "maxValue": 10},
+										"animation": {"duration": "1000"}}'
+										cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+										rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'></google-chart>
+
+										<script>
+											function getRandomValue() {
+												return Math.random() * 10;
+											}
+
+
+											window.setInterval(function() {
+												var chart = document.getElementById('mutating_chart');
+
+												chart.rows = [["Col1", getRandomValue()], ["Col2", getRandomValue()], ["Col3", getRandomValue()]];
+											}, 3000);
+										</script>
+									</graph-summary>
 								</div>
 							</div>
 
@@ -122,9 +177,31 @@
 					<table-component></table-component>
 				</div>
 				<div class="col-ms-3 col-md-3">
-					<graph-summary></graph-summary>
-					<graph-summary></graph-summary>
-					<graph-summary></graph-summary>
+					<graph-summary>
+						<google-chart
+						type='area'
+						options='{"title": "Days in a month"}'
+						cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+						rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'></google-chart>
+					</graph-summary>
+					<graph-summary>
+						<google-chart
+						type='pie'
+						options='{"title": "Distribution of days in 2001H1"}'
+						cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+						rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'></google-chart>
+					</graph-summary>
+					<graph-summary>
+						<google-chart
+						type='scatter'
+						options='{"legend": "none"}'
+						data='[["A", "B"],
+						[20, 45],
+						[31, 66],
+						[50, 80],
+						[77, 50],
+						[68, 15]]'></google-chart>
+					</graph-summary>
 					<graph-summary></graph-summary>
 				</div>
 			</div>

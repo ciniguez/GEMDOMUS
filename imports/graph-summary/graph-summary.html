@@ -20,33 +20,45 @@
 						border-color: #797979;
 						min-width: 100px;
 						min-height: 150px;
-						margin-bottom: 10px;
+						margin-bottom: 30px;
 						font-family: Arial, Helvetica, sans-serif;
 					}
-					.control{
+					.control {
 						width: 30%;
 						padding: 2px;
 						margin: 1%;
-						float:left;
+						float: left;
 					}
-					.titulo{
-						padding-left:5%;
+					.titulo {
+						padding-left: 5%;
 						background-color: #555555;
-						color:#CCCCCC;
+						color: #CCCCCC;
 					}
-					.grafico{
+					.grafico {
 						min-height: 100px;
 					}
 				</style>
 				<div class="caja" ondragstart="drag(event)" draggable="true" id="cmp1" ondragover="allowDrop(event)" drop="drop(event)">
-					<div class="titulo"><b>Titulo Gráfico</b></div>
-					<div class="grafico"><b>{{msgConection}}</b></div>
-					<div>
-						<div class="control">Edit</div>
-						<div class="control">Flip</div>
-						<div class="control">Move</div>
+					<div class="titulo">
+						<b>Titulo Gráfico</b>
 					</div>
-					
+					<div class="grafico">
+						<content>
+
+						</content>
+					</div>
+					<div>
+						<div class="control">
+							Edit
+						</div>
+						<div class="control">
+							Flip
+						</div>
+						<div class="control">
+							Move
+						</div>
+					</div>
+
 				</div>
 			</template>
 
@@ -55,9 +67,6 @@
 			Polymer({
 				is : "graph-summary",
 				ready : function() {
-					this.msgConection = "No Data conected";
-					//this.textContent = "I'm a proto-element. Check out my prototype!";
-					//var s = new Saludo();
 				}
 			});
 		</script>
