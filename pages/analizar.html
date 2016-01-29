@@ -47,7 +47,7 @@
 					<h6>LOGO</h6>
 				</div>
 				<div class="col-md-3 col-md-offset-6">
-					<h6>user1@test.com | <a href="../index.html">Logout</a></h6>
+					<h6>user1@test.com | <a href="index.html">Logout</a></h6>
 				</div>
 			</div>
 
@@ -139,6 +139,7 @@
 								<div class="col-md-6">
 									<graph-summary>
 										<google-chart
+										id="pieChar"
 										type='pie'
 										options='{"title": "Distribution of days in 2001H1"}'
 										cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
@@ -164,7 +165,8 @@
 
 											window.setInterval(function() {
 												var chart = document.getElementById('mutating_chart');
-
+												var pie= document.getElementById('pieChar');
+												pie.rows=[["Col1", getRandomValue()], ["Col2", getRandomValue()], ["Col3", getRandomValue()]];
 												chart.rows = [["Col1", getRandomValue()], ["Col2", getRandomValue()], ["Col3", getRandomValue()]];
 											}, 3000);
 										</script>
