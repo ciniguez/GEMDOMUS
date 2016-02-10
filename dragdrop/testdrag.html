@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Dragable test</title>
+		<script src="../js/jquery.min.js"></script>
+		<link href="../js/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet">
+		<script src="../js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+		<style>
+			#btnAddGraph {
+				width: 250px;
+				height: 60px;
+				background: #006688;
+				font-size: 25px;
+				color: #ffffff;
+				cursor: pointer;
+			}
+			.makeMeDraggable {
+				width: 48px;
+				height: 48px;
+				background: blue;
+				border: 1px solid #999;
+				cursor: move;
+			}
+			#makeMeDroppable {
+				width: 98%;
+				height: 500px;
+				padding: 0.5em;
+			}
+			#helper {
+				width: 24px;
+				height: 24px;
+				background: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			var counterGraphs = 3;
+			$(document).ready(function() {
+				init();
+			});
+			function init() {
+
+				$('.makeMeDraggable').draggable({
+					cursor : 'move',
+					containment : '#makeMeDroppable'
+				});
+				$('#makeMeDroppable').droppable({
+					drop : handleDropEvent
+				});
+				$("#btnAddGraph").click(function(){
+					var grafico = '<div id="graph'+counterGraphs+'" class="makeMeDraggable"></div>';
+					$("#repositorio").append(grafico);
+					$("#graph"+counterGraphs).draggable({cursor : 'move',containment : '#makeMeDroppable'});
+				});
+			}
+
+			function myHelper(event) {
+				return '<div id="helper" style="font-size:.6em;>drag me!</div>';
+			}
+			function handleDragStart(){
+				this.style.opacity = '0.4';
+			}
+
+			function handleDropEvent(event, ui) {
+				var draggable = ui.draggable;
+				$('#mensajes').html('');
+				$('#mensajes').html('<p>The square with ID "' + draggable.attr('id') + '" was dropped onto me!</p>');
+			}
+
+		</script>
+	</head>
+	<body>
+
+		<div id="btnAddGraph">
+			Agregar Gráfico
+		</div>
+		<div id="repositorio">
+			<div id="graph1" class="makeMeDraggable"></div>
+			<div id="graph2" class="makeMeDraggable"></div>
+		</div>
+		<div id="makeMeDroppable" class="ui-widget-content"></div>
+		<div id="mensajes"></div>
+	</body>
+</html>
