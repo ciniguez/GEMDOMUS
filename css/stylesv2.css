@@ -1,41 +1,163 @@
-.contenedor{
-	margin:20px;
-	border:1px solid #CCCCCC;
+.contenedor {
+	margin: 20px;
 }
-.repositorio{
-	min-width: 300px;
-	min-height: 400px;
-	border:1px solid #004C99;
+/*---------- BARRA SUPERIOR --------------*/
+#barrasuperior {
+	height: 73px;
+	background-color: #333333;
+	padding: 10px 0 0 5px;
+	color: #666666;
+	font-family: Arial;
+	font-size: 19px;
 }
-.repositorio h3{
-	margin:0;
+#barrasuperior #logo {
+	background-image: url('../images/ver2/logo.png');
+	background-repeat: no-repeat;
+	height: 55px;
+	width: 166px;
+}
+/*---------- CAJAS ----------*/
+
+.repositorio {
+	float: left;
+	margin-left: 30px;
+	min-width: 150px;
+	max-width: 300px;
+	min-height: 300px;
+	max-height: 400px;
+	border: 1px solid #004C99;
+	overflow-y: scroll;
+}
+.repositorio h3 {
+	margin: 0;
 	background: #004C99;
-	color:#FFFFFF;
+	color: #FFFFFF;
 	padding-left: 12px;
 }
-.repositorio .cartas{
-	width: 100%;
-}
-.repositorio .cartas ul{
-	list-style:none;
+.repositorio ul {
+	list-style: none;
 	margin: 0;
-	padding:0;
+	padding: 0;
 }
-.repositorio li{
+.repositorio li {
 	display: block;
-	margin-top:2px;
-	height: 100px;
-	border:1px solid #999999;
+	margin: 2px;
+	height: 80px;
+	border: 1px solid #999999;
 }
-#barrasuperior{
+/* Estilos para las carta*/
+.repositorio .carta {
 	width: 100%;
+	padding: 2px;
+}
+.repositorio .carta .iconcaja {
+	float: left;
+	width: 64px;
+	height: 64px;
+	margin: 4px 0 0 4px;
+	background-image: url('../images/ver2/file64.png');
+	background-repeat: no-repeat;
+}
+.repositorio .tituloCorto {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+.repositorio .carta .contenido {
+	float: left;
+	margin: 4px 4px 0px 4px;
+}
+.repositorio .carta p span {
+	font-size: .8em;
+}
+.repositorio .carta .add {
+	float: right;
+	width: 64px;
+	height: 64px;
+	margin-top: 8px;
+	background-image: url('../images/ver2/add64.png');
+	background-repeat: no-repeat;
+}
+.repositorio .carta .minus {
+	float: right;
+	width: 32px;
+	height: 32px;
+	margin-top: 8px;
+	background-image: url('../images/ver2/remove32.png');
+	background-repeat: no-repeat;
+}
+/* -----PANTALLA 2------------*/
+#barrasuperior ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#barrasuperior li {
+	display: inline;
+	float: right;
+	margin-right: 20px;
 	height: 40px;
-	background-color:#D9D9D9; 
-	padding: 5px;	
 }
-#logo{
-    background-image: url('../images/ver2/asd_07.png');
-    background-repeat: no-repeat;
-    height:90px;
-    margin-left:20px;
+#barrasuperior #btnAddGraph {
+	width: 41px;
+	height: 41px;
+	margin-top: 0px;
+	background-image: url('../images/ver2/add_graph_on.png');
+	background-repeat: no-repeat;
+	cursor: pointer;
 }
+#barrasuperior #btnFilters {
+	width: 41px;
+	height: 41px;
+	margin-top: 0px;
+	background-image: url('../images/ver2/filter_on.png');
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.contenedorGrafico {
+	float: left;
+	max-width: 350px;
+	max-height: 350px;
+	min-width: 300px;
+	min-height: 300px;
+	border: 2px solid #CCCCCC;
+	margin: 10px;
+}
+#filtros {
+	position: absolute;
+	top:72px;
+	right:0px;
+	z-index:8;
+	width: 224px;
+	background-color: #333333;
+	min-height: 300px;
+	color: #666666;
+}
+.fondoGradado {
+	background-image: url('../images/ver2/fnd.png');
+	background-repeat: repeat-x;
+}
+.item {
+	float: left;
+	color: #ffffff;
+	font-family: Verdana;
+	font-size: 14px;
+}
+.btnRemove {
+	background-image: url('../images/ver2/remove_11.png');
+	background-repeat: no-repeat;
+	width: 21px;
+	height: 21px;
+}
+.areatitulo {
+	height: 48px;
+	padding: 10px 0 0 15px;
+	font-size: 20px;
+}
+.filtro {
+	border: 1px solid #666666;
+	margin: 2px;
+	padding: 5px;
+	display: block;
+	height: 45px;
+}
+

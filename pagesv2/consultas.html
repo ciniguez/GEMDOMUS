@@ -1,33 +1,109 @@
 <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Pagina 1</title>
-    
-        <!-- Bootstrap -->
-        <link href="lib/bootstrap/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <link href="css/styles.css" rel="stylesheet">
-      </head>
-      <body>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-ms-12">
-              <h6>Exome-VCF</h6>
-            </div>
-          </div>
-        </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    </body>
-    </html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Analysis Data</title>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/theme.css">
+		<!-- Bootstrap -->
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../css/stylesv2.css" rel="stylesheet">
+		<!-- Script personalizado -->
+		<script src="controllerConsultas.js"></script>
+
+		<!--Load the AJAX API-->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			// Load the Visualization API and the corechart package.
+			google.charts.load('current', {
+				'packages' : ['corechart']
+			});
+
+			// Set a callback to run when the Google Visualization API is loaded.
+			google.charts.setOnLoadCallback(drawChart);
+
+			// Callback that creates and populates a data table,
+			// instantiates the pie chart, passes in the data and
+			// draws it.
+			function drawChart() {
+				for (var i = 0; i < 3; i++) {
+					dibujarGrafico("contenedorGrafico" + i);
+				}
+
+			}
+
+			function dibujarGrafico(nombreContenedor) {
+
+				// Create the data table.
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Topping');
+				data.addColumn('number', 'Slices');
+				data.addRows([['Mushrooms', 3], ['Onions', 1], ['Olives', 1], ['Zucchini', 1], ['Pepperoni', 2]]);
+
+				// Set chart options
+				var options = {
+					'title' : 'How Much Pizza I Ate Last Night',
+					'width' : 400,
+					'height' : 300
+				};
+
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document.getElementById(nombreContenedor));
+				chart.draw(data, options);
+			}
+		</script>
+
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div id="barrasuperior" class="row">
+				<div class="col-md-4">
+					<div id="logo"></div>
+				</div>
+				<div class="col-md-4">
+					<div id="totales">
+						<div>
+							10 m
+						</div>
+						<div>
+							30000000 variants
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<ul>
+						<li>
+							<div id="btnFilters"></div>
+						</li>
+						<li>
+							<div id="btnAddGraph"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="dashboard" class="col-ms-12">
+					<div id="chart_div"></div>
+				</div>
+			</div>
+		</div>
+		<div id="filtros">
+			<div class="fondoGradado areatitulo">Filters</div>
+			<div>
+				<div class="fondoGradado filtro">
+					<div class="item">Chromosome</div>
+					<div class="item">2</div>
+					<div class="item"><div class="btnRemove"></div></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

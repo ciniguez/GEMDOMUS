@@ -1,0 +1,17 @@
+[{
+	"id" : 1,
+	"nombre" : "OMIM",
+	"descripcion" : "Aqui descripcion de OMIM"
+}, {
+	"id" : 2,
+	"nombre" : "dbSNP",
+	"descripcion" : "Aqui descripcion de OMIM"
+}, {
+	"id" : 3,
+	"nombre" : "CLinVar",
+	"descripcion" : "Aqui descripcion de OMIM"
+}, {
+	"id" : 4,
+	"nombre" : "GENBANK",
+	"descripcion" : "Aqui descripcion de OMIM"
+}]

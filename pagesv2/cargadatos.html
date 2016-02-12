@@ -9,14 +9,15 @@
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
-		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/blitzer/jquery-ui.min.css">
-		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/blitzer/theme.css">
+		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+		<link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/theme.css">
 		<!-- Bootstrap -->
 		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/stylesv2.css" rel="stylesheet">
 		<!-- Script personalizado -->
 		<script src="script.js"></script>
+		<script src="controllerCargaDatos.js"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -27,73 +28,54 @@
 					</div>
 				</div>
 			</div>
-			
-				<div class="row contenedor">
-					<div class="col-ms-12">
-						<div id="acordion">
-							<h3>Project</h3>
-							<div>
+			<div class="row contenedor">
+				<div class="col-ms-12">
+					<div id="acordion">
+						<h2>Project</h2>
+						<div>
+							<p>
 								<div>
-									Name:
+									<b>Name:</b>
 								</div>
 								<div>
-									<input id="txtNombreProyecto"type="text"/>
+									<span id="lblNombreProyecto">Nombre del Proyecto 1</span>
 								</div>
+							</p>
+							<p>
 								<div>
-									Descripcion:
+									<b>Descripcion</b>
 								</div>
+
 								<div>
-									<input id="txtDescripcion"type="text"/>
+									<span id="lblDescripcion">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</span>
+								</div>
+							</p>
+						</div>
+
+						<h2>Variaciones</h2>
+						<div>
+							<div id="cmpRepositorioVariantes" class="repositorio">
+								<h3>Variants</h3>
+								<div>
+									<ul>
+										
+									</ul>
 								</div>
 							</div>
-
-							<h3>Variaciones</h3>
-							<div>
-								<div class="repositorio">
-									<h3>Variants</h3>
-									<div class="cartas">
-										<ul>
-											<li>
-												<div class="variantIcon"></div>
-												<div>
-													<p>
-														ClinVar
-													</p>
-													<p>
-														Descripcion aquí...
-													</p>
-												</div>
-												<div class="btnAdd"></div>
-											</li>
-											<li>
-												OMIM
-											</li>
-											<li>
-												dnSNP
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-
-							<h3>DataSources</h3>
-							<div>
+							<div id="cmpStorageVariantes" class="repositorio">
+								<h3>Store Data</h3>
 								<div>
-									Name:
-								</div>
-								<div>
-									<input id="txtNombreProyecto"type="text"/>
-								</div>
-								<div>
-									Descripcion:
-								</div>
-								<div>
-									<input id="txtDescripcion"type="text"/>
+									<ul>
+									</ul>
 								</div>
 							</div>
 						</div>
+
+						<h2>DataSources</h2>
+
 					</div>
 				</div>
 			</div>
+		</div>
 	</body>
 </html>
