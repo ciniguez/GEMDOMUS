@@ -12,11 +12,3 @@ $(document).ready(function() {
 	ctrl.loadVariantes("cmpRepositorioVariantes","data/data_vcfs.json");
 
 });
-
-function btnClickAdd(event){
-	
-}
-
-function btnRemoveStoreData(event) {
-
-}

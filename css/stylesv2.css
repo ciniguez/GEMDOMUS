@@ -1,8 +1,8 @@
-.contenedor {
-	margin: 20px;
+body {
+	padding-top: 70px;
 }
 /*---------- BARRA SUPERIOR --------------*/
-#barrasuperior {
+.barrasuperior {
 	height: 73px;
 	background-color: #333333;
 	padding: 10px 0 0 5px;
@@ -10,7 +10,7 @@
 	font-family: Arial;
 	font-size: 19px;
 }
-#barrasuperior #logo {
+.barrasuperior #logo {
 	background-image: url('../images/ver2/logo.png');
 	background-repeat: no-repeat;
 	height: 55px;
@@ -86,18 +86,21 @@
 	background-repeat: no-repeat;
 }
 /* -----PANTALLA 2------------*/
-#barrasuperior ul {
+.barrasuperior ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
-#barrasuperior li {
+.barrasuperior li {
 	display: inline;
-	float: right;
-	margin-right: 20px;
+	margin-left: 40px;
+	float: left;
 	height: 40px;
 }
-#barrasuperior #btnAddGraph {
+.barrasuperior #totales {
+	margin-right: 20px;
+}
+.barrasuperior #btnAddGraph {
 	width: 41px;
 	height: 41px;
 	margin-top: 0px;
@@ -105,7 +108,7 @@
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
-#barrasuperior #btnFilters {
+.barrasuperior #btnFilters {
 	width: 41px;
 	height: 41px;
 	margin-top: 0px;
@@ -115,22 +118,10 @@
 }
 .contenedorGrafico {
 	float: left;
-	max-width: 350px;
-	max-height: 350px;
-	min-width: 300px;
-	min-height: 300px;
+	width: 300px;
+	height: 300px;
 	border: 2px solid #CCCCCC;
 	margin: 10px;
-}
-#filtros {
-	position: absolute;
-	top:72px;
-	right:0px;
-	z-index:8;
-	width: 224px;
-	background-color: #333333;
-	min-height: 300px;
-	color: #666666;
 }
 .fondoGradado {
 	background-image: url('../images/ver2/fnd.png');
@@ -155,9 +146,19 @@
 }
 .filtro {
 	border: 1px solid #666666;
-	margin: 2px;
 	padding: 5px;
+	margin-left: 5px;
 	display: block;
 	height: 45px;
+}
+#sortable1 {
+	border: 1px solid #eee;
+	min-width: 100%;
+	min-height: 20px;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0 0 0;
+	float: left;
+	margin-right: 10px;
 }
 

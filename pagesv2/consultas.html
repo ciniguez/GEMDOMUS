@@ -15,95 +15,88 @@
 		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/stylesv2.css" rel="stylesheet">
+		<link href="../css/stylesv2Consultas.css" rel="stylesheet">
 		<!-- Script personalizado -->
 		<script src="controllerConsultas.js"></script>
 
 		<!--Load the AJAX API-->
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
-			// Load the Visualization API and the corechart package.
-			google.charts.load('current', {
-				'packages' : ['corechart']
+			$(document).ready(function() {
+				var controller = new GenDomusConsultas();
+				controller.init();
 			});
-
-			// Set a callback to run when the Google Visualization API is loaded.
-			google.charts.setOnLoadCallback(drawChart);
-
-			// Callback that creates and populates a data table,
-			// instantiates the pie chart, passes in the data and
-			// draws it.
-			function drawChart() {
-				for (var i = 0; i < 3; i++) {
-					dibujarGrafico("contenedorGrafico" + i);
-				}
-
-			}
-
-			function dibujarGrafico(nombreContenedor) {
-
-				// Create the data table.
-				var data = new google.visualization.DataTable();
-				data.addColumn('string', 'Topping');
-				data.addColumn('number', 'Slices');
-				data.addRows([['Mushrooms', 3], ['Onions', 1], ['Olives', 1], ['Zucchini', 1], ['Pepperoni', 2]]);
-
-				// Set chart options
-				var options = {
-					'title' : 'How Much Pizza I Ate Last Night',
-					'width' : 400,
-					'height' : 300
-				};
-
-				// Instantiate and draw our chart, passing in some options.
-				var chart = new google.visualization.PieChart(document.getElementById(nombreContenedor));
-				chart.draw(data, options);
-			}
 		</script>
 
 	</head>
 	<body>
-		<div class="container-fluid">
-			<div id="barrasuperior" class="row">
-				<div class="col-md-4">
-					<div id="logo"></div>
+
+		<nav class="navbar navbar-default navbar-fixed-top barrasuperior" role="navigation">
+			<div id="logo" class="navbar-brand"></div>
+
+			<div id="totales" class="navbar-right">
+				<div>
+					10 m
 				</div>
-				<div class="col-md-4">
-					<div id="totales">
-						<div>
-							10 m
-						</div>
-						<div>
-							30000000 variants
-						</div>
+				<div>
+					30000000 variants
+				</div>
+			</div>
+			<ul class="navbar-left">
+				<li>
+					<div id="btnFilters"></div>
+				</li>
+				<li>
+					<div id="btnAddGraph"></div>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="principal">
+			<div class="row row-offcanvas row-offcanvas-left">
+
+				<div class="col-xs-12 col-sm-9 content">
+					<div id="dashboard">
+						<ul id="sortable1"></ul>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<ul>
-						<li>
-							<div id="btnFilters"></div>
-						</li>
-						<li>
-							<div id="btnAddGraph"></div>
-						</li>
-					</ul>
-				</div>
-			</div>
 
-			<div class="row">
-				<div id="dashboard" class="col-ms-12">
-					<div id="chart_div"></div>
+				<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+					<div class="sidebar-collapse menu-scroll">
+						<ul class="nav">
+							<li>
+								<div class="fondoGradado filtro">
+									<div class="item">
+										Chromosome
+									</div>
+									<div class="item">
+										2
+									</div>
+									<div class="item">
+										<div class="btnRemove"></div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="fondoGradado filtro">
+									<div class="item">
+										Chromosome
+									</div>
+									<div class="item">
+										2
+									</div>
+									<div class="item">
+										<div class="btnRemove"></div>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+					</div>
 				</div>
+
 			</div>
 		</div>
-		<div id="filtros">
-			<div class="fondoGradado areatitulo">Filters</div>
-			<div>
-				<div class="fondoGradado filtro">
-					<div class="item">Chromosome</div>
-					<div class="item">2</div>
-					<div class="item"><div class="btnRemove"></div></div>
-				</div>
-			</div>
-		</div>
+
 	</body>
 </html>
