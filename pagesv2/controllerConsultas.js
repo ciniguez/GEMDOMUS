@@ -12,6 +12,7 @@ function GenDomusConsultas() {
 	 * Métodos de la Clase
 	 */
 	that.init = function() {
+		
 		$('#btnFilters').click(function() {
 			if ($('.sidebar-offcanvas').css('background-color') == 'rgb(255, 255, 255)') {
 				$('.filters').attr('tabindex', '-1');
@@ -31,20 +32,23 @@ function GenDomusConsultas() {
 
 			//Obtengo las variables del gráfico
 			var titulo = $('#frameNewGraph #txtTitle').val();
-			console.log(titulo);
+			//console.log(titulo);
 			var tipoGrafico = 0;
-			console.log(tipoGrafico);
+			//console.log(tipoGrafico);
 			var variablePrincipal = $('#frameNewGraph select[id="lstMainVariable"]').val();
-			console.log(variablePrincipal);
+			//console.log(variablePrincipal);
 			var variableSecundaria = $('#frameNewGraph select[id="lstSecondVariable"]').val();
-			console.log(variableSecundaria);
+			//console.log(variableSecundaria);
 			var operacion = $('#frameNewGraph select[id="lstAgregation"]').val();
-			console.log(operacion);
-			
+			//console.log(operacion);
 
 			//Add the graph to cotainer created.
 			var options = {
 				'title' : titulo,
+				'tipoGrafico' : tipoGrafico,
+				'variablePrincipal' : variablePrincipal,
+				'variableSecundaria' : variableSecundaria,
+				'operacion' : operacion,
 				'width' : that.anchoGrafico,
 				'height' : that.altoGrafico
 			};
@@ -70,8 +74,9 @@ function GenDomusConsultas() {
 			var liElement = '<div id="' + idName + '" class="contenedorGrafico"></div>';
 
 			$(liElement).prependTo('#dashboard ul');
-			//Efecto feedback para el usuario (cambio de color para alertar el nuevo gráfico)
 
+			//Efecto feedback para el usuario (cambio de color para alertar el nuevo gráfico)
+			//Una vez que la animación termina, se ejeucta la creación del gráfico.
 			$('#' + idName).animate({
 				'border-width' : "120px",
 			}, 'slow');
@@ -84,10 +89,9 @@ function GenDomusConsultas() {
 				data.addColumn('string', 'Topping');
 				data.addColumn('number', 'Slices');
 				data.addRows([['Mushrooms', 3], ['Onions', 1], ['Olives', 1], ['Zucchini', 1], ['Pepperoni', 2]]);
-				// Set a callback to run when the Google Visualization API is loaded.
-				// Instantiate and draw our chart, passing in some options.
-				var chart = new google.visualization.PieChart(document.getElementById(idName));
-				chart.draw(data, options);
+				
+				var newGrafico = new ClassGrafico(data,options, idName);
+				newGrafico.dibujar();
 				//Actualizo el contador de Contenedores
 				that.idContenedorActual += 1;
 
@@ -98,6 +102,4 @@ function GenDomusConsultas() {
 		}
 
 	};
-
 }
-
