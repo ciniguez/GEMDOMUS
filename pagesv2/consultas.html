@@ -15,11 +15,13 @@
 		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/stylesv2.css" rel="stylesheet">
+		<link href="../css/stylesConsultas.css" rel="stylesheet">
 		<link href="../css/stylesv2Consultas.css" rel="stylesheet">
 		<!-- Script personalizado -->
-		<script src="ClaseObserverGrafico.js"></script>
-		<script src="ClaseGrafico.js"></script>
-		<script src="controllerConsultas.js"></script>
+		<!--script src="ClaseObserverGrafico.js"></script-->
+		<!--script src="ClaseGrafico.js"></script-->
+		<!--script src="controllerConsultas.js"></script-->
+		<script src="GendomusLibrary.js"></script>
 
 		<!--Load the AJAX API-->
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -30,8 +32,69 @@
 			});
 			google.charts.setOnLoadCallback(function() {
 				$(document).ready(function() {
-					var controller = new GenDomusConsultas();
-					controller.init();
+					//var controller = new GenDomusConsultas();
+					var controller = new GENDOMUS.APP.inicializar();
+					controller.init({
+						numeroContenedoresGraficosAllowed : 6,
+						idContenedorActual : 0,
+						prefijoContenedor : "gr",
+						altoGrafico : 290,
+						anchoGrafico : 290,
+						idBtnAgregarGrafico : "",
+						idBtnEliminarGrafico : "",
+						idDashboard : '#dashboard ul',
+						idPilaFiltros: "#filterList",
+						idContendorMensajes : "#msgs"
+						
+					});
+
+					//Boton para mostrar el panel de filtros
+					$('#btnFilters').click(function() {
+						if ($('.sidebar-offcanvas').css('background-color') == 'rgb(255, 255, 255)') {
+							$('.filters').attr('tabindex', '-1');
+						} else {
+							$('.filters').attr('tabindex', '');
+						}
+						$('.row-offcanvas').toggleClass('active');
+
+					});
+					//Boton para abrir el menu de agregacion de Grafico
+					$('#btnAddGraph').click(function() {
+						$("#frameNewGraph").modal();
+					});
+					$('#btnDeleteGraph').click(function() {
+						//TO DO
+					});
+					//Boton "Aceptar" del cuadro de dialogo para agregar un grafico
+					$('#frameNewGraph .btn-success').click(function() {
+
+						//Obtengo las variables del gráfico
+						var titulo = $('#frameNewGraph #txtTitle').val();
+						//console.log(titulo);
+						var tipoGrafico = 0;
+						//console.log(tipoGrafico);
+						var variablePrincipal = $('#frameNewGraph select[id="lstMainVariable"]').val();
+						//console.log(variablePrincipal);
+						var variableSecundaria = $('#frameNewGraph select[id="lstSecondVariable"]').val();
+						//console.log(variableSecundaria);
+						var operacion = $('#frameNewGraph select[id="lstAgregation"]').val();
+						//console.log(operacion);
+
+						//Add the graph to cotainer created.
+						var options = {
+							'title' : titulo,
+							'tipoGrafico' : tipoGrafico,
+							'variablePrincipal' : variablePrincipal,
+							'variableSecundaria' : variableSecundaria,
+							'operacion' : operacion,
+							'width' : 290,
+							'height' : 290
+						};
+						controller.addGraph(options);
+
+					});
+					//Agregar funcionalidad SORTABLE a la lista ul
+					$("#sortable1").sortable().disableSelection();
 				});
 			});
 
@@ -39,26 +102,31 @@
 	</head>
 	<body>
 
-		<nav class="navbar navbar-default navbar-fixed-top barrasuperior" role="navigation">
-			<div id="logo" class="navbar-brand"></div>
-
-			<div id="totales" class="navbar-right">
-				<div>
-					10 m
+		<div class="container-fluid">
+			<div  id="barrasuperior" class="row">
+				<div class="col-xs-12 col-md-8">
+					<div id="logo"></div>
+					<ul id="comandos">
+						<li>
+							<div id="btnFilters"></div>
+						</li>
+						<li>
+							<div id="btnAddGraph"></div>
+						</li>
+					</ul>
 				</div>
-				<div>
-					30000000 variants
+				<div class="col-xs-12 col-md-4">
+					<div id="totales">
+						<div>
+							10 m
+						</div>
+						<div>
+							30000000 variants
+						</div>
+					</div>
 				</div>
 			</div>
-			<ul class="navbar-left">
-				<li>
-					<div id="btnFilters"></div>
-				</li>
-				<li>
-					<div id="btnAddGraph"></div>
-				</li>
-			</ul>
-		</nav>
+		</div>
 
 		<div class="principal">
 			<div class="row row-offcanvas row-offcanvas-left">
