@@ -17,6 +17,9 @@ var GENDOMUS = {
 				that.idDashboard = options.idDashboard;
 				that.idPilaFiltros = options.idPilaFiltros;
 				that.idContendorMensajes = options.idContenedorMensajes;
+
+				//Instancio los objetos
+				var pilaFiltros = new GENDOMUS.GENLIBRARY.clsPilaFiltros(that.idPilaFiltros);
 			};
 			/**
 			 * Create a graph container inside UL "sortable" and draw a statisctic graph inside it.
@@ -109,21 +112,13 @@ var GENDOMUS = {
 
 						//var str = claseGrafico.data.getFormattedValue(item.row, 0);
 						var valorSeleccionado = claseGrafico.data.getValue(item.row, 1);
-
+						//actualizacion de los valores Parametro Generales.
+						var newParametro = new GENDOMUS.GLOBAL.ClsParametro(claseGrafico.variablePrincipal, valorSeleccionado);
 						var parametros = new GENDOMUS.GLOBAL.ClsParametros();
-						var parametro = parametros.getParameterByKey(claseGrafico.variablePrincipal);
-						if (parametro) {
-							//modifico el existente
-							parametro.valor = valorSeleccionado;
-							parametros.addParameter(parametro);
-						} else {
-							var newParametro = new GENDOMUS.GLOBAL.ClsParametro(claseGrafico.variablePrincipal, valorSeleccionado);
-							parametros.addParameter(newParametro);
-						}
-						parametros.imprimirLista();
+						parametros.addParameter(newParametro);
 
 						//agregar filtro en stack de filtros
-						var objFiltro = new GENDOMUS.GENLIBRARY.clsFilter(this.variablePrincipal, valorSeleccionado);
+						var objFiltro = new GENDOMUS.GENLIBRARY.clsFilter(claseGrafico.variablePrincipal, valorSeleccionado);
 						var colaFiltros = new GENDOMUS.GENLIBRARY.clsPilaFiltros();
 						colaFiltros.addFiltro(objFiltro);
 
@@ -211,28 +206,28 @@ var GENDOMUS = {
 			idPilaFiltros = idTagPilaFiltros;
 
 			/**
-			 * Agregar un filtro a la pila de filtros
+			 * Agregar un filtro a la pila de filtros y grafica visualmente un <li> dentro de la
+			 * <ul id="idPilaFiltros"> con id provisto de la pila
 			 * @param filterObject Objeto del tipo "clsFilter"
 			 */
 			that.addFiltro = function(filterObject) {
-				//Agrego el filtro al array de filtros
-				filters.push(filterObject);
-				//Agregamos el HTML a la Pila de Filtros. Para lo cual comprobamos si
-				//ya existe un filtro con referido al mismo parámetro. Si existe, lo reemplazamos,
-				//caso contrario creamos uno nuevo al final de la lista.
-				var bandera = false;
-				for (var i = 0; i < filters.lenght; i++) {
+				//Agregamos el HTML a la Pila de Filtros. Para lo cual comprobamos duplicidad (si
+				//ya existe un filtro con el mismo parámetro). Si hay duplicidad, reemplazamos
+				//los valores ya presentes, caso contrario agregamos un nuevo filtro al final de la lista.
+				var isDuplicado = false;
+				for (var i = 0; i < filters.length; i++) {
 					if (filters[i].key == filterObject.key) {
-						bandera = true;
-						console.log('lo encontro, vamos a reemplazarlo');
+						isDuplicado = true;
+						filters[i].value = filterObject.value;
+						document.querySelector("#filterList #"+filterObject.key+" .valorFiltro").innerHTML = filterObject.value;
 						break;
 					}
 				}
-				if (bandera == false) {
+				if (isDuplicado === false) {
 					//Agrego un nuevo filtro al stack
-					$(idPilaFiltros).append('<li><div class="fondoGradado filtro"><div class="item">' + filterObject.key + '</div><div class="item">' + filterObject.value + '</div><div class="item"><div class="btnRemove"></div></div></div></li>');
-				} else {
-					return;
+					$(idPilaFiltros).append('<li><div id="' + filterObject.key + '" class="fondoGradado filtro"><div class="item">' + filterObject.key + '</div><div class="item"><span class="valorFiltro">' + filterObject.value + '</span></div><div class="item"><div class="btnRemove"></div></div></div></li>');
+					//Agrego el filtro al array de filtros
+					filters.push(filterObject);
 				}
 			};
 			/**
@@ -251,33 +246,38 @@ var GENDOMUS = {
 			if (GENDOMUS.GLOBAL.ClsParametros.singleInstance)
 				return GENDOMUS.GLOBAL.ClsParametros.singleInstance;
 			var that = this;
-			GENDOMUS.GLOBAL.ClsParametros.singleInstance = this;
+			GENDOMUS.GLOBAL.ClsParametros.singleInstance = that;
 			parameters = [];
 
-			that.addParameter = function(clave, valor) {
+			that.addParameter = function(parametro) {
+				//No puede existir parametros duplicados (respecto a la clave)
 				var isDuplicado = false;
-				for (var i = 0; i < parameters.lenght; i++) {
-					if (parameters[i].clave == clave) {
+				for (var i = 0; i < parameters.length; i++) {
+					if (parameters[i].clave == parametro.clave) {
 						isDuplicado = true;
-						console.log("el parametro está duplicado, reemplazare unicamente su valor");
-						parameters[i].valor = valor;
+						//Al encontrarse duplicado solo reemplazo su valor y su clave se mantiene
+						parameters[i].valor = parametro.valor;
 						break;
 					}
 				}
 				if (isDuplicado == false) {
-					parameters.push(new GENDOMUS.GLOBAL.ClsParametro(clave, valor));
+					//ingreso al parametro como nuevo
+					parameters.push(parametro);
 				}
 			};
-			that.imprimirLista = function() {
+			that.getParametros = function() {
+				return parameters;
+			};
+			that.toString = function() {
+				var resultado = "";
 				if (parameters) {
-					console.log("Tamanio de arreglo :" + parameter.length);
-					for (var i = 0; i < parameters.lenght; i++) {
-						console.log("Parametro: " + parameters[i].key + " Clave:" + clave);
-
+					for (var i = 0; i < parameters.length; i++) {
+						resultado += parameters[i].toSource();
 					}
-				}else{
+				} else {
 					console.log("lista de parametros UNDEFINED");
 				}
+				return resultado;
 			};
 			that.getParameterByKey = function(clave) {
 				for (var i = 0; i < parameters.length; i++) {
@@ -301,18 +301,11 @@ var GENDOMUS = {
 					parameters = parameters.splice(i, 1);
 				}
 			};
-			//this.cromosoma = 0;
-			//this.alelo = 0;
-			//this.referencia = 0;
-			//this.filtro = 0;
 		},
 		ClsSelectHandler : function() {
 			var parametros = new GENDOMUS.GLOBAL.ClsParametros();
-
-			var url = "En " + this.idContenedor + " cosulto : chr:" + parametros.cromosoma + " |alelo:" + parametros.alelo + "|REF: " + parametros.referencia;
-			console.log(url);
 			//Llamar a Servicio Web para obtener datos
-			console.log('Aqui se llama al servicio web y se rellena los datos para Contenedor ' + this.idContenedor);
+			console.log('Contenedor: ' + this.idContenedor + ', invoca WS con parametros: SELECT (' + this.variablePrincipal + ' vs ' + this.variableSecundaria + ') WHERE ' + parametros.toString());
 
 		}
 	}
