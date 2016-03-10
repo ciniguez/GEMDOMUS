@@ -1,0 +1,107 @@
+[[
+		{
+			"id": {
+				"chars": "1",
+				"string": "1",
+				"valueType": "STRING"
+			},
+			"name": {
+				"chars": "Breast cancer - Mother Study",
+				"string": "Breast cancer - Mother Study",
+				"valueType": "STRING"
+			},
+			"description": {
+				"chars": "Samples from the mother",
+				"string": "Samples from the mother",
+				"valueType": "STRING"
+			},
+			"size": {
+				"chars": "3",
+				"string": "3",
+				"valueType": "STRING"
+			}
+		},[
+			{
+				"id": {
+					"chars": "1",
+					"string": "1",
+					"valueType": "STRING"
+				},
+				"description": {
+					"chars": "Chr 1",
+					"string": "Chr 1",
+					"valueType": "STRING"
+				}
+			}, {
+				"id": {
+					"chars": "2",
+					"string": "2",
+					"valueType": "STRING"
+				},
+				"description": {
+					"chars": "Chr X",
+					"string": "Chr X",
+					"valueType": "STRING"
+				}
+			}, {
+				"id": {
+					"chars": "3",
+					"string": "3",
+					"valueType": "STRING"
+				},
+				"description": {
+					"chars": "Chr 4",
+					"string": "Chr 4",
+					"valueType": "STRING"
+				}
+			}
+		]
+	],[
+		{
+			"id": {
+				"chars": "2",
+				"string": "2",
+				"valueType": "STRING"
+			},
+			"name": {
+				"chars": "Breast cancer - Daughter Study",
+				"string": "Breast cancer - Daughter Study",
+				"valueType": "STRING"
+			},
+			"description": {
+				"chars": "Samples from the daughter",
+				"string": "Samples from the daughter",
+				"valueType": "STRING"
+			},
+			"size": {
+				"chars": "2",
+				"string": "2",
+				"valueType": "STRING"
+			}
+		},[
+			{
+				"id": {
+					"chars": "4",
+					"string": "4",
+					"valueType": "STRING"
+				},
+				"description": {
+					"chars": "Chr 4",
+					"string": "Chr 4",
+					"valueType": "STRING"
+				}
+			}, {
+				"id": {
+					"chars": "5",
+					"string": "5",
+					"valueType": "STRING"
+				},
+				"description": {
+					"chars": "Chr X",
+					"string": "Chr X",
+					"valueType": "STRING"
+				}
+			}
+		]
+	]
+]

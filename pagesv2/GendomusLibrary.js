@@ -1,8 +1,8 @@
 var GENDOMUS = {
 	APP : {
+
 		inicializar : function() {
 			var that = this;
-
 			/**
 			 * Métodos de la Clase
 			 */
@@ -19,6 +19,8 @@ var GENDOMUS = {
 				that.idContendorMensajes = options.idContenedorMensajes;
 
 				//Instancio los objetos
+				var webSoket = new GENDOMUS.GENLIBRARY.Webskt();
+				// se conecta al server mediante web Socket
 				var pilaFiltros = new GENDOMUS.GENLIBRARY.clsPilaFiltros(that.idPilaFiltros);
 			};
 			/**
@@ -47,13 +49,7 @@ var GENDOMUS = {
 					$('#' + idName).animate({
 						'border-width' : "1px",
 					}, 'fast', function() {
-						// Create the data table.
-						var data = new google.visualization.DataTable();
-						data.addColumn('string', 'Topping');
-						data.addColumn('number', 'Slices');
-						data.addRows([['Mushrooms', 3], ['Onions', 1], ['Olives', 1], ['Zucchini', 1], ['Pepperoni', 2]]);
-
-						var newGrafico = new GENDOMUS.GENLIBRARY.clsGrafico(data, options, idName);
+						var newGrafico = new GENDOMUS.GENLIBRARY.clsGrafico(options, idName);
 						newGrafico.dibujar();
 						//Actualizo el contador de Contenedores
 						that.idContenedorActual += 1;
@@ -74,6 +70,33 @@ var GENDOMUS = {
 	},
 
 	GENLIBRARY : {
+		/**
+		 * Conexion a WebSoket
+		 * @author: Alberto.
+		 */
+		Webskt : function() {
+			if (GENDOMUS.GENLIBRARY.Webskt.singleInstance)
+				return GENDOMUS.GENLIBRARY.Webskt.singleInstance;
+			var that = this;
+			GENDOMUS.GENLIBRARY.Webskt.singleInstance = that;
+
+			that.conn = new WebSocket('ws://158.42.185.198:8080/BroadcastingHandler');
+			that.conn.onopen = function() {
+				console.log('connected!');
+			};
+			that.conn.onerror = function(error) {
+				console.log("webSocket Error " + error);
+			};
+			//Acciones a realizar cuando se recibe un mensaje
+			that.conn.onmessage = function(e) {
+				console.log("Aqui actualización de graficos");
+			};
+			//Cuando se cierra la conexión se llama a onclose donde e es el motivo del cierre.
+			that.conn.onclose = function(e) {
+				console.log("webSocket Closed " + e.data);
+			};
+
+		},
 		/**
 		 * Esta Clase utiliza el patrón Singleton para tener
 		 * una única instancia. A esta clase se suscriben los gráficos
@@ -141,12 +164,17 @@ var GENDOMUS = {
 		/**
 		 * Implementacion de una clase en base a los
 		 * gráfico de Google Chart.
+		 * Los datos se consultan automaticamente en base a
+		 * la variable Principal y la variable Secundaria, estas
+		 * variables vienen contenidas en "options".
+		 * La url de consulta, está quemada en la misma clase y será única.
+		 * @param options Conjunto de atributos configurables de la clase
+		 * @param idContendor Id del tag HTML en el que se almacena el grafico
 		 */
-		clsGrafico : function(data, options, idContenedor) {
+		clsGrafico : function(options, idContenedor) {
 			var that = this;
-			//Seteo las variables de la funcion********
-			//Data para ser pintada en el gráfico
-			that.data = data;
+			//Data para ser pintada en el gráfico, en formato DataTable de Google
+			that.data = null;
 			//Nombre de variables que identifican el contexto del contenido del grafico
 			that.variablePrincipal = options.variablePrincipal;
 			that.variableSecundaria = options.variableSecundaria;
@@ -160,25 +188,57 @@ var GENDOMUS = {
 				"height" : options.height
 			};
 
-			//Objeto gráfico de Google
-			that.graficoGoogle = new google.visualization.PieChart(document.getElementById(that.idContenedor));
-			//Agregar evento select, para lanzar un evento al seleccionar cualquier region del grafico
-			google.visualization.events.addListener(that.graficoGoogle, 'select', functionHandler);
-			//Suscribir Objeto (clsGrafico) para futuros eventos (Patron Observador)
-			var observer = new GENDOMUS.GENLIBRARY.clsObserverSingleton();
-			observer.subscribe(that);
-
 			that.dibujar = function() {
-				//dibujar el gráfico
-				that.graficoGoogle.draw(that.data, that.opcionesGoogle);
+				//obtener datos desde WS
+				$.ajax({
+					url : "http://158.42.185.198:8080/getchrvsvariant/"
+				}).then(function(data) {
+					console.log(data.toSource());
+
+					var jsonData = $.ajax({
+						url : "../testJson/Cromosome.json",
+						dataType : "json",
+						beforeSend : function(xhr) {
+							console.log("recibiendo datos desde server para grafico: " + that.idContenedor);
+						},
+						async : false,
+					}).responseText;
+
+					GENDOMUS.GENLIBRARY.Webskt().conn.send(jsonData);
+				});
+
+				/*
+				 var jsonData = $.ajax({
+				 url : "../testJson/Cromosome.json",
+				 dataType : "json",
+				 beforeSend : function(xhr) {
+				 console.log("recibiendo datos desde server para grafico: " + that.idContenedor);
+				 },
+				 async : false,
+				 }).responseText;
+				 */
+
+				/*
+				 that.data = new google.visualization.DataTable(jsonData);
+				 //Objeto gráfico de Google
+				 that.graficoGoogle = new google.visualization.PieChart(document.getElementById(that.idContenedor));
+				 //Agregar evento select, para lanzar un evento al seleccionar cualquier region del grafico
+				 google.visualization.events.addListener(that.graficoGoogle, 'select', functionHandler);
+				 //Suscribir Objeto (clsGrafico) para futuros eventos (Patron Observador)
+				 var observer = new GENDOMUS.GENLIBRARY.clsObserverSingleton();
+				 observer.subscribe(that);
+				 //Desplegar el grafico
+				 that.graficoGoogle.draw(that.data, that.opcionesGoogle);
+				 */
+
 			};
 			function functionHandler() {
 				//Llamamos a la instancia del Suscriptor (Patron Observer)
+				console.log("entro a handelr");
 				var observer = new GENDOMUS.GENLIBRARY.clsObserverSingleton();
 				//suscribimos el grafico
 				observer.fire(that.graficoGoogle.getSelection(), that);
-			}
-
+			};
 
 			that.eliminar = function() {
 				//Suscribir Objeto (ClassGrafico) para futuros eventos
@@ -219,7 +279,7 @@ var GENDOMUS = {
 					if (filters[i].key == filterObject.key) {
 						isDuplicado = true;
 						filters[i].value = filterObject.value;
-						document.querySelector("#filterList #"+filterObject.key+" .valorFiltro").innerHTML = filterObject.value;
+						document.querySelector("#filterList #" + filterObject.key + " .valorFiltro").innerHTML = filterObject.value;
 						break;
 					}
 				}
